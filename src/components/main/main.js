@@ -1,7 +1,30 @@
 import React, {Component} from 'react';
-import { StyleSheet, View, Image, Text, TextInput, KeyboardAvoidingView, StatusBar } from 'react-native';
+import {
+  StyleSheet, View, Image, Text, TextInput, KeyboardAvoidingView, StatusBar
+} from 'react-native';
+
+
 
 export default class Main extends Component {
+  constructor(){
+    super();
+    this.state = {
+      result: 20,
+      warning: ""
+    }
+    resultado = (result) => {
+      var _result = 20, _warning = "";
+      if (result != "" || result > 0) {
+        _result = (100 / result).toFixed(2);
+        if (isNaN(_result) || _result < 0){
+          _result = "?";
+          if(result.contains(',')){_warning = "try using a \".\" instead of a comma"}
+        }
+      }
+      //console.log(result, typeof(result));
+      this.setState({result: _result,warning: _warning});
+    }
+  }
   render() {
     return (
       <KeyboardAvoidingView behavior="padding" style={styles.container}>
@@ -14,8 +37,11 @@ export default class Main extends Component {
           source={require('../../images/main.png')}
         />
 
-        <Text style={styles.result}>
-           20 km/l
+        <Text style={styles.result} >
+          {this.state.result} km/l
+        </Text>
+        <Text style={styles.small} >
+          {this.state.warning}
         </Text>
       </View>
 
@@ -24,6 +50,7 @@ export default class Main extends Component {
         keyboardType="numeric"
         placeholder="5 liters per 100 km"
         style={styles.input}
+        onChangeText={(text) => {resultado(text)}}
       />
 
       </KeyboardAvoidingView>
@@ -37,7 +64,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#61082b'
   },
   small: {
-    color: '#ccc',
+    color: 'rgba(255,255,255,0.3)',
     fontSize: 9,
   },
   logo: {
