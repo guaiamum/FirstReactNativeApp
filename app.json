@@ -12,5 +12,7 @@
     "android": {
       "package": "com.guaiamum.myfirstapp"
     }
-  }
+  },
+  "name": "MyFirstApp",
+  "displayName": "My First App"
 }

@@ -18,10 +18,9 @@ export default class Main extends Component {
         _result = (100 / result).toFixed(2);
         if (isNaN(_result) || _result < 0){
           _result = "?";
-          if(result.contains(',')){_warning = "try using a \".\" instead of a comma"}
+          if(result.contains(',')){_warning = "try using a \".\" instead of a comma!"}
         }
       }
-      //console.log(result, typeof(result));
       this.setState({result: _result,warning: _warning});
     }
   }
@@ -70,10 +69,10 @@ const styles = StyleSheet.create({
   logo: {
     width: 80,
     height: 80,
+    marginTop: 100,
     marginBottom: 4
   },
   logoContainer: {
-    marginTop: 200,
     alignItems: 'center',
     justifyContent: 'center',
   },
