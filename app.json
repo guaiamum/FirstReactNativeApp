@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "My First App",
+    "name": "Fuel Translation",
     "icon": "./icon/icon.png",
     "orientation": "portrait",
     "version": "0.1.0",
@@ -14,5 +14,5 @@
     }
   },
   "name": "MyFirstApp",
-  "displayName": "My First App"
+  "displayName": "Fuel Translation"
 }

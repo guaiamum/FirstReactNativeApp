@@ -14,31 +14,30 @@ export default class Main extends Component {
     }
   }
 
-  // resultado = (result, oldValue) => {
-  //   if (result === '')
-  //     return;
-  //   var _result = result, _warning = '';
+  Convert = (result) => {
+    let _result = (100 / result).toFixed(2);
     
-  //   if (isNaN(_result) || _result < 0) {
-  //     _result = "?";
-  //     if (toConvert.contains(',')) { _warning = "try using a \".\" instead of a comma!" }
-  //   }
+    if (isNaN(_result) || _result < 0) {
+      _result = "?";
+      if (result.contains(',')) { 
+        this.setState((prev) => ({kmPerLiter: prev.kmPerLiter, literPerHundredwarning: prev.literPerHundred, warning:"try using a \".\" instead of a comma!" }));
+        return null;
+      }
+    }
 
-  //   this.setState((prevState) => {
-  //     return { kmPerLiter: oldValue, literPerHundred: _result, warning: _warning };
-  //   });
-  // }
+    return _result;
+  }
 
   BrToEu = (kmPerLiter) => {
-    console.log('BR: '+kmPerLiter);
-    var result = (100 / kmPerLiter).toFixed(2);
-    this.setState({ kmPerLiter: kmPerLiter, literPerHundred: result, warning: ''});
+    let result = this.Convert(kmPerLiter);
+    if(result)
+      this.setState({ kmPerLiter: kmPerLiter, literPerHundred: result, warning: ''});
   }
 
   EuToBr = (literPerHundred) => {
-    console.log('EU: '+literPerHundred);
-    var result = (literPerHundred / 100).toFixed(2);
-    this.setState({ kmPerLiter: result, literPerHundred: literPerHundred, warning: ''});
+    let result = this.Convert(literPerHundred);
+    if(result)
+      this.setState({ kmPerLiter: result, literPerHundred: literPerHundred, warning: ''});
   }
 
   render() {
