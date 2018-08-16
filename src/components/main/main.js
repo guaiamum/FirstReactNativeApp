@@ -14,26 +14,31 @@ export default class Main extends Component {
     }
   }
 
-  resultado = (result, type) => {
-    if (result === '')
-      return;
-    var _result = result, _warning = '';
+  // resultado = (result, oldValue) => {
+  //   if (result === '')
+  //     return;
+  //   var _result = result, _warning = '';
     
-    if (isNaN(_result) || _result < 0) {
-      _result = "?";
-      if (toConvert.contains(',')) { _warning = "try using a \".\" instead of a comma!" }
-    }
+  //   if (isNaN(_result) || _result < 0) {
+  //     _result = "?";
+  //     if (toConvert.contains(',')) { _warning = "try using a \".\" instead of a comma!" }
+  //   }
 
-    this.setState({ literPerHundred: _result, warning: _warning });
-  }
+  //   this.setState((prevState) => {
+  //     return { kmPerLiter: oldValue, literPerHundred: _result, warning: _warning };
+  //   });
+  // }
 
   BrToEu = (kmPerLiter) => {
-    var result = (kmPerLiter / 100).toFixed(2);
-    resultado(result, 'br');
+    console.log('BR: '+kmPerLiter);
+    var result = (100 / kmPerLiter).toFixed(2);
+    this.setState({ kmPerLiter: kmPerLiter, literPerHundred: result, warning: ''});
   }
 
   EuToBr = (literPerHundred) => {
-    return (100 / literPerHundred).toFixed(2);
+    console.log('EU: '+literPerHundred);
+    var result = (literPerHundred / 100).toFixed(2);
+    this.setState({ kmPerLiter: result, literPerHundred: literPerHundred, warning: ''});
   }
 
   render() {
@@ -53,7 +58,6 @@ export default class Main extends Component {
           <TextInput
             underlineColorAndroid='rgba(0,0,0,0)'
             keyboardType="numeric"
-            placeholder="20 km per liter"
             style={styles.input}
             value={state.kmPerLiter}
             onChangeText={(text) => { this.BrToEu(text) }}
@@ -69,8 +73,8 @@ export default class Main extends Component {
             underlineColorAndroid='rgba(0,0,0,0)'
             keyboardType="numeric"
             style={styles.input}
-            value={props.literPerHundred}
-          //onChangeText={(text) => { this.EuToBr(text) }}
+            value={state.literPerHundred}
+            onChangeText={(text) => { this.EuToBr(text) }}
           />
 
         </View>
