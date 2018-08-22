@@ -14,39 +14,36 @@ export default class Main extends Component {
     }
   }
 
-  Convert = (result) => {
-    let _result = (100 / result).toFixed(2);
-    
-    if (isNaN(_result) || _result < 0) {
-      _result = "?";
-      if (result.contains(',')) { 
-        this.setState((prev) => ({kmPerLiter: prev.kmPerLiter, literPerHundredwarning: prev.literPerHundred, warning:"try using a \".\" instead of a comma!" }));
-        return null;
+  Convert = (toConvert) => {
+    let result = (100 / toConvert).toFixed(1);
+
+    if (!isFinite(result) || result < 0) {
+      result = "?";
+      if (toConvert.contains(',')) {
+        return this.Convert(toConvert.replace(/,/g,'.'));
       }
     }
 
-    return _result;
+    return result;
   }
 
   BrToEu = (kmPerLiter) => {
     let result = this.Convert(kmPerLiter);
-    if(result)
-      this.setState({ kmPerLiter: kmPerLiter, literPerHundred: result, warning: ''});
+    if (result)
+      this.setState({ kmPerLiter: kmPerLiter, literPerHundred: result });
   }
 
   EuToBr = (literPerHundred) => {
     let result = this.Convert(literPerHundred);
-    if(result)
-      this.setState({ kmPerLiter: result, literPerHundred: literPerHundred, warning: ''});
+    if (result)
+      this.setState({ kmPerLiter: result, literPerHundred: literPerHundred });
   }
 
   render() {
     const state = this.state, props = this.props;
     return (
-      <KeyboardAvoidingView behavior="padding" style={styles.container}>
-        <StatusBar
-          barStyle="light-content"
-        />
+      <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
+        <StatusBar barStyle="light-content" />
         <View style={styles.logoContainer}>
           <Image
             style={styles.logo}
@@ -87,37 +84,41 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#61082b'
   },
+  // customFont: {
+  //   fontFamily: 'Josefin Sans Bold',
+  //   color: 'yellow'
+  // },
   logoContainer: {
     alignItems: 'center',
     justifyContent: 'center',
+    paddingTop: '2.5%',
+    paddingLeft: '5%'
   },
   logo: {
-    width: 40,
-    height: 40,
-    marginTop: 4,
-    marginBottom: 4
+    width: 30,
+    height: 30
   },
-  measureContainer: {
-    //alignItems: 'center',
-    justifyContent: 'center',
-  },
+
   smallWarning: {
+    alignSelf: 'center',
+    color: 'rgba(255,255,255,0.5)',
+    fontSize: 12,
+  },
+
+  measureContainer: {
     justifyContent: 'center',
-    color: 'rgba(255,255,255,0.3)',
-    fontSize: 9,
+    // backgroundColor: '#4d4d33'
   },
   measureLabel: {
-    fontFamily: 'JosefinSans-Thin',
     color: '#ccc',
     fontSize: 15,
     alignSelf: 'center'
   },
   input: {
     fontSize: 150,
-    height: 250,
-    margin: 10,
+    height: 240,
     textAlign: 'center',
-    //backgroundColor: 'rgba(255,255,255,0.4)',
-    color: 'white'
+    color: 'white',
+    // backgroundColor: '#2e2e1f'
   }
 });
