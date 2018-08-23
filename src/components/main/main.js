@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   StyleSheet, View, Image, Text, TextInput, KeyboardAvoidingView, StatusBar
 } from 'react-native';
+import MeasureInput from '../measureInput/measureInput';
 
 
 export default class Main extends Component {
@@ -77,6 +78,9 @@ export default class Main extends Component {
           />
 
         </View>
+
+        <MeasureInput isMedia={false} data={{onChangeCallback: this.EuToBr}}/>
+
       </KeyboardAvoidingView>
     );
   }
