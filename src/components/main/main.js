@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {
   StyleSheet, View, Image, Text, TextInput, KeyboardAvoidingView, StatusBar
 } from 'react-native';
+import MeasureInput from '../measureInput/measureInput';
 
 
 export default class Main extends Component {
@@ -20,7 +21,7 @@ export default class Main extends Component {
     if (!isFinite(result) || result < 0) {
       result = "?";
       if (toConvert.contains(',')) {
-        return this.Convert(toConvert.replace(/,/g,'.'));
+        return this.Convert(toConvert.replace(/,/g, '.'));
       }
     }
 
@@ -51,13 +52,7 @@ export default class Main extends Component {
           />
         </View>
         <View style={styles.measureContainer}>
-          <TextInput
-            underlineColorAndroid='rgba(0,0,0,0)'
-            keyboardType="numeric"
-            style={styles.input}
-            value={state.kmPerLiter}
-            onChangeText={(text) => { this.BrToEu(text) }}
-          />
+          <MeasureInput onChangeCallback={ this.BrToEu } value={state.kmPerLiter}/>
           <Text style={styles.measureLabel} >km/l</Text>
         </View>
 
@@ -65,15 +60,10 @@ export default class Main extends Component {
 
         <View style={styles.measureContainer}>
           <Text style={styles.measureLabel} >liters per 100 km</Text>
-          <TextInput
-            underlineColorAndroid='rgba(0,0,0,0)'
-            keyboardType="numeric"
-            style={styles.input}
-            value={state.literPerHundred}
-            onChangeText={(text) => { this.EuToBr(text) }}
-          />
-
+          <MeasureInput onChangeCallback={ this.EuToBr } value={state.literPerHundred}/>
         </View>
+
+
       </KeyboardAvoidingView>
     );
   }
@@ -113,12 +103,5 @@ const styles = StyleSheet.create({
     color: '#ccc',
     fontSize: 15,
     alignSelf: 'center'
-  },
-  input: {
-    fontSize: 150,
-    height: 240,
-    textAlign: 'center',
-    color: 'white',
-    // backgroundColor: '#2e2e1f'
   }
 });
