@@ -2,6 +2,8 @@ This project was bootstrapped with [Create React Native App](https://github.com/
 
 ## About the project
 
+It was my first Mobile App using React Native, and my first contact with React, oh boy, those where the times of innocence..
+
 * translates fuel consumption in liters per kilometers to efficiency in kilometers per liter
 
 ## When cloning:
